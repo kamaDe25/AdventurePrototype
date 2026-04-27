@@ -1,4 +1,4 @@
-A simple adventure game by {who?} based on a simple adventure game engine by [Adam Smith](https://github.com/rndmcnlly).
+ A simple adventure game by Kamalika De based on a simple adventure game engine by [Adam Smith](https://github.com/rndmcnlly).
 
 Code requirements:
 - **4+ scenes based on `AdventureScene`**: unsatisfied (name at least 4 of the classes).
@@ -8,10 +8,10 @@ Code requirements:
     - Enhancement 2: unsatisfied (name the method and explain the use of it).
 
 Experience requirements:
-- **4+ locations in the game world**: unsatisfied (name at least 4 of the classes).
-- **2+ interactive objects in most scenes**: unsatisfied (describe two examples)
-- **Many objects have `pointerover` messages**: unsatisfied (describe two examples)
-- **Many objects have `pointerdown` effects**: unsatisfied (describe two examples)
+- **4+ locations in the game world**: forest, forestSlope, underground, lakeBottom, fairyShrine
+- **2+ interactive objects in most scenes**: empty bottle to be thrown away in forest scene, medallion to be picked up in lakeBottom scene
+- **Many objects have `pointerover` messages**: empty bottles in forest scenes have a pointerover message; medallion in lakeBottom scene also has pointerover message.
+- **Many objects have `pointerdown` effects**: empty bottles can be dragged to trash cans in forest scene; medallions can be picked up in lakeBottom scene 
 - **Some objects are themselves animated**: unsatisfied (describe two examples)
 
 Asset sources:
