@@ -1,8 +1,8 @@
  A simple adventure game by Kamalika De based on a simple adventure game engine by [Adam Smith](https://github.com/rndmcnlly).
 
 Code requirements:
-- **4+ scenes based on `AdventureScene`**: unsatisfied (name at least 4 of the classes).
-- **2+ scenes *not* based on `AdventureScene`**: unsatisfied (name the classes).
+- **4+ scenes based on `AdventureScene`**: forest, forestSlope, underground, lakeBottom, fairyShrine
+- **2+ scenes *not* based on `AdventureScene`**: Intro, badEnding, goodEnding
 - **2+ methods or other enhancement added to the adventure game engine to simplify my scenes**:
     - Enhancement 1: unsatisfied (name the method and explain the use of it).
     - Enhancement 2: unsatisfied (name the method and explain the use of it).
