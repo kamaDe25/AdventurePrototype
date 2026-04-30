@@ -111,7 +111,7 @@ class Forest extends AdventureScene {
         .on('pointerover', () => this.showMessage("This bottle is on a dangerous slope"))
         .on('pointerdown', () => {
             this.showMessage("You fell into a hole in the ground.");
-            this.gotoScene('demo2');
+            this.gotoScene('undergroundlair');
         })
 
 
@@ -197,6 +197,37 @@ class Forest extends AdventureScene {
     }
 }
 
+class UndergroundLair extends AdventureScene{
+    constructor(){
+        super("undergroundlair", "You fell into an underground cave");
+    }
+
+    onEnter(){
+        this.showMessage("There's a beautiful lake here.");
+
+        this.add.text(this.w * 0.3, this.w * 0.4, "Pool")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            this.showMessage("Jump into the lake?");
+        })
+        .on('pointerdown', () => {
+            this.gotoScene('demo1');
+        });
+
+        this.add.text(this.w * 0.5, this.w * 0.5, "Tunnel")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            this.showMessage("Climb back to the surface?");
+        })
+        .on('pointerdown', () => {
+            this.gotoScene('demo1');
+        });
+    }
+}
+
+/*
 class Demo2 extends AdventureScene {
     constructor() {
         super("demo2", "The second room has a long name (it truly does).");
@@ -226,7 +257,7 @@ class Demo2 extends AdventureScene {
             })
             .on('pointerdown', () => this.gotoScene('outro'));
     }
-}
+}*/
 
 class MyIntro extends Phaser.Scene{
     constructor(){
@@ -261,7 +292,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [MyIntro, Forest, Demo2, Outro],
+    scene: [MyIntro, Forest, UndergroundLair, Outro],
     title: "Adventure Game",
 });
 
