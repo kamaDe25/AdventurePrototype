@@ -355,6 +355,24 @@ class MyIntro extends Phaser.Scene{
     }
 }
 
+class GoodEnding extends Phaser.Scene{
+    constructor(){
+        super('goodending');
+    }
+    preload(){}
+    create(){}
+    update(){}
+}
+
+class BadEnding extends Phaser.Scene{
+    constructor(){
+        super('badending');
+    }
+    preload(){}
+    create(){}
+    update(){}
+}
+
 class Outro extends Phaser.Scene {
     constructor() {
         super('outro');
@@ -374,7 +392,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [MyIntro, Forest, UndergroundLair, LakeBottom, FairyShrine, Outro],
+    scene: [MyIntro, Forest, UndergroundLair, LakeBottom, FairyShrine, GoodEnding, BadEnding],
     title: "Adventure Game",
 });
 
