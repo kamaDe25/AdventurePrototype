@@ -65,11 +65,70 @@ class Demo1 extends AdventureScene {
 
 class Forest extends AdventureScene {
      constructor() {
-        super("forest", "First Room");
+        super("forest", "Forest");
     }
 
     onEnter() {
 
+        //making a water bottle to throw away
+        let bottle = this.add.text(this.w * 0.4, this.w * 0.4, "water bottle")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => this.showMessage("Ew, trash"))
+            .on('pointerdown', () => {
+                this.showMessage("Throw it away!");
+                this.gainItem('water bottle');
+                this.tweens.add({
+                    targets: bottle,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => bottle.destroy()
+                });
+            })
+
+        //making another water bottle to throw away
+         let bottle1 = this.add.text(this.w * 0.1, this.w * 0.3, " larger water bottle")
+            .setFontSize(this.s * 2.5)
+            .setInteractive()
+            .on('pointerover', () => this.showMessage("Ew, trash"))
+            .on('pointerdown', () => {
+                this.showMessage("Throw it away!");
+                this.gainItem('larger water bottle');
+                this.tweens.add({
+                    targets: bottle1,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => bottle1.destroy()
+                });
+            })
+
+        
+        //trash can to throw away water bottles
+        let trash = this.add.text(this.w * 0.5, this.w * 0.5, "trash can")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                if (this.hasItem("water bottle") || (this.hasItem("larger water bottle"))) {
+                    this.showMessage("Throw away your trash!");
+                } else {
+                    this.showMessage("Found any trash?");
+                }
+            })
+            .on('pointerdown', () => {
+                if (this.hasItem("water bottle")) {
+                    this.loseItem("water bottle");
+                    this.showMessage("*thud*");
+                    this.showMessage("You helped clean up the forest!");
+                }else if(this.hasItem("larger water bottle")){
+                    this.loseItem("larger water bottle");
+                    this.showMessage("*thud*");
+                    this.showMessage("You helped clean up the forest!");
+                }
+                
+            })
+        /*
         let clip = this.add.text(this.w * 0.3, this.w * 0.3, "📎 paperclip")
             .setFontSize(this.s * 2)
             .setInteractive()
@@ -84,8 +143,9 @@ class Forest extends AdventureScene {
                     ease: 'Sine.inOut',
                     duration: 100
                 });
-            });
+            });*/
 
+        /*
         let key = this.add.text(this.w * 0.5, this.w * 0.1, "🔑 key")
             .setFontSize(this.s * 2)
             .setInteractive()
@@ -102,8 +162,8 @@ class Forest extends AdventureScene {
                     duration: 500,
                     onComplete: () => key.destroy()
                 });
-            })
-
+            })*/
+        /*
         let door = this.add.text(this.w * 0.1, this.w * 0.15, "🚪 locked door")
             .setFontSize(this.s * 2)
             .setInteractive()
@@ -121,7 +181,7 @@ class Forest extends AdventureScene {
                     door.setText("🚪 unlocked door");
                     this.gotoScene('demo2');
                 }
-            })
+            })*/
 
     }
 }
