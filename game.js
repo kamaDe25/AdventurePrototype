@@ -212,7 +212,7 @@ class UndergroundLair extends AdventureScene{
             this.showMessage("Jump into the lake?");
         })
         .on('pointerdown', () => {
-            this.gotoScene('demo1');
+            this.gotoScene('lakebottom');
         });
 
         this.add.text(this.w * 0.5, this.w * 0.5, "Tunnel")
@@ -225,6 +225,44 @@ class UndergroundLair extends AdventureScene{
             this.gotoScene('demo1');
         });
     }
+}
+
+class LakeBottom extends AdventureScene{
+    constructor() {
+        super("lakebottom", "You are at the bottom of the lake.");
+    }
+
+    onEnter(){
+        this.showMessage("You see the medallion on the bottom of the lake");
+
+        let medallion = this.add.text(this.w * 0.3, this.w * 0.4, "Medallion")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            this.showMessage("Pick it up?");
+        })
+        .on('pointerdown', () => {
+            this.gainItem('Medallion');
+            this.tweens.add({
+                targets: medallion,
+                y: `-=${2 * this.s}`,
+                alpha: { from: 1, to: 0 },
+                duration: 500,
+                onComplete: () => medallion.destroy()
+            });
+        });
+
+        this.add.text(this.w * 0.5, this.w * 0.5, "Swim up")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            this.showMessage("Swim back to the surface?");
+        })
+        .on('pointerdown', () => {
+            this.gotoScene('undergroundlair');
+        });
+    }
+
 }
 
 /*
@@ -292,7 +330,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [MyIntro, Forest, UndergroundLair, Outro],
+    scene: [MyIntro, Forest, UndergroundLair, LakeBottom, Outro],
     title: "Adventure Game",
 });
 
