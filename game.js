@@ -222,7 +222,7 @@ class UndergroundLair extends AdventureScene{
             this.showMessage("Climb back to the surface?");
         })
         .on('pointerdown', () => {
-            this.gotoScene('demo1');
+            this.gotoScene('fairyshrine');
         });
     }
 }
@@ -259,6 +259,50 @@ class LakeBottom extends AdventureScene{
             this.showMessage("Swim back to the surface?");
         })
         .on('pointerdown', () => {
+            this.gotoScene('undergroundlair');
+        });
+    }
+
+}
+
+class FairyShrine extends AdventureScene{
+    constructor() {
+        super("fairyshrine", "You are standing in front of a Fairy Shrine.");
+    }
+
+    onEnter(){
+        this.showMessage("Place the Medallion on the Shrine.");
+
+        this.add.text(this.w * 0.3, this.w * 0.4, "Place it on the Shrine")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            this.showMessage("Listen to the voice.");
+        })
+        .on('pointerdown', () => {
+            this.showMessage("You listened to the voice.");
+            //need to add shrineInventory methood
+
+        });
+
+        this.add.text(this.w * 0.4, this.w * 0.4, "Don't place it on the Shrine")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            this.showMessage("This medallion is worth a lot of money.");
+        })
+        .on('pointerdown', () => {
+            this.showMessage("You have diasspointed me.");
+        });
+
+        this.add.text(this.w * 0.1, this.w * 0.2, "Head home")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () =>{
+            this.showMessage("You feel tired.");
+        })
+        .on('pointerdown', () => {
+            //change to work with shrine inventory
             this.gotoScene('undergroundlair');
         });
     }
@@ -330,7 +374,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [MyIntro, Forest, UndergroundLair, LakeBottom, Outro],
+    scene: [MyIntro, Forest, UndergroundLair, LakeBottom, FairyShrine, Outro],
     title: "Adventure Game",
 });
 
