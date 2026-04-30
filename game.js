@@ -104,6 +104,17 @@ class Forest extends AdventureScene {
                 });
             })
 
+        //bottle on a dangerous slope
+        let bottle3 = this.add.text(this.w * 0.2, this.w * 0.1, "water bottle on steep slope")
+        .setFontSize(this.s * 1)
+        .setInteractive()
+        .on('pointerover', () => this.showMessage("This bottle is on a dangerous slope"))
+        .on('pointerdown', () => {
+            this.showMessage("You fell into a hole in the ground.");
+            this.gotoScene('demo2');
+        })
+
+
         
         //trash can to throw away water bottles
         let trash = this.add.text(this.w * 0.5, this.w * 0.5, "trash can")
