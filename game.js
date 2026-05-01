@@ -359,8 +359,14 @@ class GoodEnding extends Phaser.Scene{
     constructor(){
         super('goodending');
     }
-    preload(){}
-    create(){}
+    preload(){
+        this.load.path = 'assets/';
+        this.load.image('forest', 'forest.jpg');
+    }
+    create(){
+        const forest = this.add.image(400, 300, 'forest');
+        forest.setScale(1.3);
+    }
     update(){}
 }
 
@@ -368,8 +374,14 @@ class BadEnding extends Phaser.Scene{
     constructor(){
         super('badending');
     }
-    preload(){}
-    create(){}
+    preload(){
+        this.load.path = 'assets/';
+        this.load.image('badEnding', 'badEnding.jpg');
+    }
+    create(){
+        const ending = this.add.image(400, 300, 'badEnding');
+        ending.setScale(1.3);
+    }
     update(){}
 }
 
