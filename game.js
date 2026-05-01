@@ -80,10 +80,12 @@ class UndergroundLair extends AdventureScene{
 
     onEnter(){
 
-        this.add.text(this.w * 0.3, this.h * 0.5, "\"Swim to the bottom of the lake to get the Medallion,\" you hear from an ethreal voice.");
+        this.add.text(this.w * 0.05, this.h * 0.1, "You hear an ethreal voice tell you, \"Swim to the bottom of the lake to get the Medallion.\"")
+            .setFontSize(this.s *2)
+            .setWordWrapWidth(this.w * 0.5)
         this.showMessage("There's a beautiful lake here.");
 
-        this.add.text(this.w * 0.3, this.h * 0.4, "Pool")
+        this.add.text(this.w * 0.3, this.h * 0.4, "Lake")
         .setFontSize(this.s * 2)
         .setInteractive()
         .on('pointerover', () => {
@@ -111,26 +113,29 @@ class LakeBottom extends AdventureScene{
     }
 
     onEnter(){
-        this.showMessage("You see the medallion on the bottom of the lake");
+        
+        if(this.hasItem("Medallion") == false){
+            this.showMessage("You see the medallion on the bottom of the lake");
 
-        let medallion = this.add.text(this.w * 0.3, this.w * 0.4, "Medallion")
-        .setFontSize(this.s * 2)
-        .setInteractive()
-        .on('pointerover', () => {
-            this.showMessage("Pick it up?");
-        })
-        .on('pointerdown', () => {
-            this.gainItem('Medallion');
-            this.tweens.add({
-                targets: medallion,
-                y: `-=${2 * this.s}`,
-                alpha: { from: 1, to: 0 },
-                duration: 500,
-                onComplete: () => medallion.destroy()
+            let medallion = this.add.text(this.w * 0.3, this.h * 0.7, "Medallion")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Pick it up?");
+            })
+            .on('pointerdown', () => {
+                this.gainItem('Medallion');
+                this.tweens.add({
+                    targets: medallion,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => medallion.destroy()
+                });
             });
-        });
-
-        this.add.text(this.w * 0.5, this.w * 0.5, "Swim up")
+        }
+        
+        this.add.text(this.w * 0.5, this.w * 0.1, "Swim up")
         .setFontSize(this.s * 2)
         .setInteractive()
         .on('pointerover', () => {
@@ -150,16 +155,26 @@ class FairyShrine extends AdventureScene{
 
     onEnter(){
         if(this.hasItem("Medallion")){
-            this.add.text(this.w * 0.2, this.h * 0.2, "\"Place the Medallion on the Fairy Shrine.\"");
+            this.add.text(this.w * 0.2, this.h * 0.2, "\"Place the Medallion on the Fairy Shrine.\"")
+            .setFontSize(this.s *2)
+            .setWordWrapWidth(this.w * 0.5)
         }
 
-        this.add.text(this.w * 0.3, this.w * 0.4, "Shrine")
+        this.add.text(this.w * 0.1, this.w * 0.4, "Shrine")
         .setFontSize(this.s * 2)
         .setInteractive()
         .on('pointerover', () => {
-            this.showMessage("Listen to the voice.");
+            if(this.hasItem("Medallion")){
+                this.showMessage("Listen to the voice.");
+            }else{
+                this.showMessage("What is this for?");
+            }
         })
+
         .on('pointerdown', () => {
+            console.log("trash inventory:", this.trashInventory);
+            console.log("trash count:", this.trashInventory.length);
+            
             if(this.hasItem("Medallion")){
                 this.showMessage("You listened to the voice.");
                 if(this.hasAllItemTrash(2)){
@@ -177,10 +192,16 @@ class FairyShrine extends AdventureScene{
         .setFontSize(this.s * 2)
         .setInteractive()
         .on('pointerover', () => {
-            this.showMessage("You are tired and this medallion is worth a lot of money.");
+            if(this.hasItem("Medallion")){
+                this.showMessage("You are tired and this medallion is worth a lot of money.");
+            }else{
+                this.showMessage("You are tired");
+            }
         })
         .on('pointerdown', () => {
-            this.add.text(this.w * 0.2, this.h * 0.3,"\"You have diasspointed me.\"");
+            this.add.text(this.w * 0.2, this.h * 0.3,"\"You have disapointed me.\"")
+            .setFontSize(this.s *2)
+            .setWordWrapWidth(this.w * 0.5)
             this.gotoScene("badending");
         });
 
@@ -188,44 +209,12 @@ class FairyShrine extends AdventureScene{
 
 }
 
-/*
-class Demo2 extends AdventureScene {
-    constructor() {
-        super("demo2", "The second room has a long name (it truly does).");
-    }
-    onEnter() {
-        this.add.text(this.w * 0.3, this.w * 0.4, "just go back")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("You've got no other choice, really.");
-            })
-            .on('pointerdown', () => {
-                this.gotoScene('demo1');
-            });
-
-        let finish = this.add.text(this.w * 0.6, this.w * 0.2, '(finish the game)')
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage('*giggles*');
-                this.tweens.add({
-                    targets: finish,
-                    x: this.s + (this.h - 2 * this.s) * Math.random(),
-                    y: this.s + (this.h - 2 * this.s) * Math.random(),
-                    ease: 'Sine.inOut',
-                    duration: 500
-                });
-            })
-            .on('pointerdown', () => this.gotoScene('outro'));
-    }
-}*/
-
 class MyIntro extends Phaser.Scene{
     constructor(){
         super('myintro')
     }
     create(){
-        this.add.text(50, 50, "Forest Friends").setFontSize(50);
+        this.add.text(50, 50, "Voice of the Forest").setFontSize(50);
         this.add.text(50, 100, "Click anywhere to begin.").setFontSize(20);
         this.input.on('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
@@ -243,8 +232,15 @@ class GoodEnding extends Phaser.Scene{
         this.load.image('forest', 'forest.jpg');
     }
     create(){
-        const forest = this.add.image(400, 300, 'forest');
-        forest.setScale(1.3);
+        const centerX = this.cameras.main.width / 2
+        const centerY = this.cameras.main.height / 2
+        const forest = this.add.image(centerX, centerY, 'forest');
+        const scaleX = this.cameras.main.width / forest.width
+        const scaleY = this.cameras.main.height / forest.height
+        forest.setScale(Math.max(scaleX, scaleY));
+
+        this.add.text(50, 50, "\"Thank you for your act of kindess,\" you hear the voice say.\n You decide to pick up more trash before heading home.").setFontSize(50);
+        
     }
     update(){}
 }
@@ -258,8 +254,17 @@ class BadEnding extends Phaser.Scene{
         this.load.image('badEnding', 'badEnding.jpg');
     }
     create(){
-        const ending = this.add.image(400, 300, 'badEnding');
-        ending.setScale(1.3);
+        const centerX = this.cameras.main.width / 2
+        const centerY = this.cameras.main.height / 2
+        const ending = this.add.image(centerX, centerY + 1, 'badEnding');
+        const scaleX = this.cameras.main.width / ending.width
+        const scaleY = this.cameras.main.height / ending.height
+        ending.setScale(Math.min(scaleX, scaleY));
+        ending.setAngle(90)
+
+        this.add.text(50, 50, "\"A human's inability to listen shouldn't surprised me anymore,\" you hear the voice say.\n You have turned into a flower.")
+        .setFontSize(40)
+        //.setWordWrapWidth(700);
     }
     update(){}
 }
@@ -273,8 +278,17 @@ class BadEnding2 extends Phaser.Scene{
         this.load.image('badEnding', 'badEnding.jpg');
     }
     create(){
-        const ending = this.add.image(400, 300, 'badEnding');
-        ending.setScale(1.3);
+        const centerX = this.cameras.main.width / 2
+        const centerY = this.cameras.main.height / 2
+        const ending = this.add.image(centerX, centerY + 1, 'badEnding');
+        const scaleX = this.cameras.main.width / ending.width
+        const scaleY = this.cameras.main.height / ending.height
+        ending.setScale(Math.min(scaleX, scaleY));
+        ending.setAngle(90)
+
+        this.add.text(50, 50, "\"You were nice, but humans can't be trusted with secrets,\" you hear the voice say.\n You have turned into a flower.")
+        .setFontSize(40)
+        //.setWordWrapWidth(700);
  
     }
     update(){}
