@@ -1,10 +1,9 @@
 class Forest extends AdventureScene {
      constructor() {
-        super("forest", "You are in the Forest.");
+        super("forest", "You are in the Forest. Throwing away trash is always good.");
     }
 
     onEnter() {
-
         //making a water bottle to throw away
         let bottle = this.add.text(this.w * 0.4, this.w * 0.4, "water bottle")
             .setFontSize(this.s * 2)
@@ -83,7 +82,6 @@ class UndergroundLair extends AdventureScene{
         this.add.text(this.w * 0.05, this.h * 0.1, "You hear an ethreal voice tell you, \"Swim to the bottom of the lake to get the Medallion.\"")
             .setFontSize(this.s *2)
             .setWordWrapWidth(this.w * 0.5)
-        this.showMessage("There's a beautiful lake here.");
 
         this.add.text(this.w * 0.3, this.h * 0.4, "Lake")
         .setFontSize(this.s * 2)
