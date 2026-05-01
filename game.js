@@ -1,71 +1,6 @@
-/*
-class Demo1 extends AdventureScene {
-    constructor() {
-        super("demo1", "First Room");
-    }
-
-    onEnter() {
-
-        let clip = this.add.text(this.w * 0.3, this.w * 0.3, "📎 paperclip")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => this.showMessage("Metal, bent."))
-            .on('pointerdown', () => {
-                this.showMessage("No touching!");
-                this.tweens.add({
-                    targets: clip,
-                    x: '+=' + this.s,
-                    repeat: 2,
-                    yoyo: true,
-                    ease: 'Sine.inOut',
-                    duration: 100
-                });
-            });
-
-        let key = this.add.text(this.w * 0.5, this.w * 0.1, "🔑 key")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("It's a nice key.")
-            })
-            .on('pointerdown', () => {
-                this.showMessage("You pick up the key.");
-                this.gainItem('key');
-                this.tweens.add({
-                    targets: key,
-                    y: `-=${2 * this.s}`,
-                    alpha: { from: 1, to: 0 },
-                    duration: 500,
-                    onComplete: () => key.destroy()
-                });
-            })
-
-        let door = this.add.text(this.w * 0.1, this.w * 0.15, "🚪 locked door")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                if (this.hasItem("key")) {
-                    this.showMessage("You've got the key for this door.");
-                } else {
-                    this.showMessage("It's locked. Can you find a key?");
-                }
-            })
-            .on('pointerdown', () => {
-                if (this.hasItem("key")) {
-                    this.loseItem("key");
-                    this.showMessage("*squeak*");
-                    door.setText("🚪 unlocked door");
-                    this.gotoScene('demo2');
-                }
-            })
-
-    }
-}
-*/
-
 class Forest extends AdventureScene {
      constructor() {
-        super("forest", "Forest");
+        super("forest", "You are in the Forest.");
     }
 
     onEnter() {
@@ -129,83 +64,26 @@ class Forest extends AdventureScene {
             })
             .on('pointerdown', () => {
                 if (this.hasItem("water bottle")) {
-                    this.loseItem("water bottle");
-                    this.showMessage("*thud*");
-                    this.showMessage("You helped clean up the forest!");
+                    this.gainItemTrash("water bottle");
                 }else if(this.hasItem("larger water bottle")){
-                    this.loseItem("larger water bottle");
-                    this.showMessage("*thud*");
-                    this.showMessage("You helped clean up the forest!");
+                    this.gainItemTrash("larger water bottle");
                 }
                 
             })
-        /*
-        let clip = this.add.text(this.w * 0.3, this.w * 0.3, "📎 paperclip")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => this.showMessage("Metal, bent."))
-            .on('pointerdown', () => {
-                this.showMessage("No touching!");
-                this.tweens.add({
-                    targets: clip,
-                    x: '+=' + this.s,
-                    repeat: 2,
-                    yoyo: true,
-                    ease: 'Sine.inOut',
-                    duration: 100
-                });
-            });*/
-
-        /*
-        let key = this.add.text(this.w * 0.5, this.w * 0.1, "🔑 key")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("It's a nice key.")
-            })
-            .on('pointerdown', () => {
-                this.showMessage("You pick up the key.");
-                this.gainItem('key');
-                this.tweens.add({
-                    targets: key,
-                    y: `-=${2 * this.s}`,
-                    alpha: { from: 1, to: 0 },
-                    duration: 500,
-                    onComplete: () => key.destroy()
-                });
-            })*/
-        /*
-        let door = this.add.text(this.w * 0.1, this.w * 0.15, "🚪 locked door")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                if (this.hasItem("key")) {
-                    this.showMessage("You've got the key for this door.");
-                } else {
-                    this.showMessage("It's locked. Can you find a key?");
-                }
-            })
-            .on('pointerdown', () => {
-                if (this.hasItem("key")) {
-                    this.loseItem("key");
-                    this.showMessage("*squeak*");
-                    door.setText("🚪 unlocked door");
-                    this.gotoScene('demo2');
-                }
-            })*/
-
     }
 }
 
 class UndergroundLair extends AdventureScene{
     constructor(){
-        super("undergroundlair", "You fell into an underground cave");
+        super("undergroundlair", "You fell into an underground cave.");
     }
 
     onEnter(){
+
+        this.add.text(this.w * 0.3, this.h * 0.5, "\"Swim to the bottom of the lake to get the Medallion,\" you hear from an ethreal voice.");
         this.showMessage("There's a beautiful lake here.");
 
-        this.add.text(this.w * 0.3, this.w * 0.4, "Pool")
+        this.add.text(this.w * 0.3, this.h * 0.4, "Pool")
         .setFontSize(this.s * 2)
         .setInteractive()
         .on('pointerover', () => {
@@ -271,40 +149,41 @@ class FairyShrine extends AdventureScene{
     }
 
     onEnter(){
-        this.showMessage("Place the Medallion on the Shrine.");
+        if(this.hasItem("Medallion")){
+            this.add.text(this.w * 0.2, this.h * 0.2, "\"Place the Medallion on the Fairy Shrine.\"");
+        }
 
-        this.add.text(this.w * 0.3, this.w * 0.4, "Place it on the Shrine")
+        this.add.text(this.w * 0.3, this.w * 0.4, "Shrine")
         .setFontSize(this.s * 2)
         .setInteractive()
         .on('pointerover', () => {
             this.showMessage("Listen to the voice.");
         })
         .on('pointerdown', () => {
-            this.showMessage("You listened to the voice.");
-            //need to add shrineInventory methood
-
+            if(this.hasItem("Medallion")){
+                this.showMessage("You listened to the voice.");
+                if(this.hasAllItemTrash(2)){
+                    this.gotoScene("goodending");
+                }else{
+                    this.gotoScene("badending2");
+                }
+            }else{
+                this.showMessage("You have nothing of value to give.");
+                this.gotoScene("badending2"); 
+            }
         });
 
-        this.add.text(this.w * 0.4, this.w * 0.4, "Don't place it on the Shrine")
+        this.add.text(this.w * 0.4, this.w * 0.4, "Go home")
         .setFontSize(this.s * 2)
         .setInteractive()
         .on('pointerover', () => {
-            this.showMessage("This medallion is worth a lot of money.");
+            this.showMessage("You are tired and this medallion is worth a lot of money.");
         })
         .on('pointerdown', () => {
-            this.showMessage("You have diasspointed me.");
+            this.add.text(this.w * 0.2, this.h * 0.3,"\"You have diasspointed me.\"");
+            this.gotoScene("badending");
         });
 
-        this.add.text(this.w * 0.1, this.w * 0.2, "Head home")
-        .setFontSize(this.s * 2)
-        .setInteractive()
-        .on('pointerover', () =>{
-            this.showMessage("You feel tired.");
-        })
-        .on('pointerdown', () => {
-            //change to work with shrine inventory
-            this.gotoScene('undergroundlair');
-        });
     }
 
 }
@@ -385,17 +264,21 @@ class BadEnding extends Phaser.Scene{
     update(){}
 }
 
-class Outro extends Phaser.Scene {
-    constructor() {
-        super('outro');
+class BadEnding2 extends Phaser.Scene{
+      constructor(){
+        super('badending2');
     }
-    create() {
-        this.add.text(50, 50, "That's all!").setFontSize(50);
-        this.add.text(50, 100, "Click anywhere to restart.").setFontSize(20);
-        this.input.on('pointerdown', () => this.scene.start('intro'));
+    preload(){
+        this.load.path = 'assets/';
+        this.load.image('badEnding', 'badEnding.jpg');
     }
+    create(){
+        const ending = this.add.image(400, 300, 'badEnding');
+        ending.setScale(1.3);
+ 
+    }
+    update(){}
 }
-
 
 const game = new Phaser.Game({
     scale: {
@@ -404,7 +287,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [MyIntro, Forest, UndergroundLair, LakeBottom, FairyShrine, GoodEnding, BadEnding],
+    scene: [MyIntro, Forest, UndergroundLair, LakeBottom, FairyShrine, GoodEnding, BadEnding, BadEnding2],
     title: "Adventure Game",
 });
 

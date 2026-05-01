@@ -21,9 +21,11 @@ class AdventureScene extends Phaser.Scene {
      * We use this to thread the inventory through scene transitions.
      *
      * @param {{inventory?: string[]}} data
+     * @param {{trashInventory?: string[]}} data
      */
     init(data) {
         this.inventory = data.inventory || [];
+        this.trashInventory = data.trashInventory || [];
     }
 
     /**
@@ -147,6 +149,21 @@ class AdventureScene extends Phaser.Scene {
         return this.inventory.includes(item);
     }
 
+    //Similar to above but tests the trash inventory
+    /**
+     * @param {int} item Item name.
+    *@returns {boolean}
+    */
+    hasAllItemTrash(number) {
+        if(this.trashInventory.length == number){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+
     /**
      * Add an item to the player's inventory (no-op with a console warning
      * if the item is already held). The inventory panel animates the new entry in.
@@ -171,6 +188,21 @@ class AdventureScene extends Phaser.Scene {
                 });
             }
         }
+    }
+
+    /*similar to above methood but updates the trash inventory instead
+    *
+    * @param {string} item Item name. Short and consistent works best (e.g. `"key"`, not `"a shiny key"`)
+    */
+    gainItemTrash(item){
+        if (this.trashInventory.includes(item)) {
+            console.warn('gaining item already held:', item);
+            return;
+        }
+        this.loseItem(item);
+        this.showMessage("*thud*");
+        this.showMessage("You helped clean up the forest!");
+        this.trashInventory.push(item);
     }
 
     /**
@@ -210,7 +242,7 @@ class AdventureScene extends Phaser.Scene {
     gotoScene(key) {
         this.cameras.main.fade(this.transitionDuration, 0, 0, 0);
         this.time.delayedCall(this.transitionDuration, () => {
-            this.scene.start(key, { inventory: this.inventory });
+            this.scene.start(key, { inventory: this.inventory }, {trashInventory: this.trashInventory});
         });
     }
 
