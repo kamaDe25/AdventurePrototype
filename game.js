@@ -211,9 +211,21 @@ class MyIntro extends Phaser.Scene{
     constructor(){
         super('myintro')
     }
+    preload(){
+        this.load.path = 'assets/';
+        this.load.image('forest', 'forest.jpg');
+    }
     create(){
-        this.add.text(50, 50, "Voice of the Forest").setFontSize(50);
-        this.add.text(50, 100, "Click anywhere to begin.").setFontSize(20);
+
+        const centerX = this.cameras.main.width / 2
+        const centerY = this.cameras.main.height / 2
+        const forest = this.add.image(centerX, centerY, 'forest');
+        const scaleX = this.cameras.main.width / forest.width
+        const scaleY = this.cameras.main.height / forest.height
+        
+        forest.setScale(Math.max(scaleX, scaleY));
+        this.add.text(600, 500, "Voice of the Forest").setFontSize(70);
+        this.add.text(1300, 900, "Click anywhere to begin.").setFontSize(30);
         this.input.on('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
             this.time.delayedCall(1000, () => this.scene.start('forest'));
@@ -299,6 +311,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
+    parent: "root",
     scene: [MyIntro, Forest, UndergroundLair, LakeBottom, FairyShrine, GoodEnding, BadEnding, BadEnding2],
     title: "Adventure Game",
 });
